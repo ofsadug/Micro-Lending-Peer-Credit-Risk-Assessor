@@ -1,0 +1,13 @@
+# Requirements Table – Micro-Lending & Peer Credit Risk Assessor
+
+**Name:** Apurv Kumar Singh | **SRN:** PES1UG24CS077 | **Class:** 5B
+
+| ID | Type | Description | Priority | Acceptance Criteria | Rationale |
+| :-- | :-- | :-- | :-- | :-- | :-- |
+| **FR-001** | Functional | The system shall compute borrower credit risk ratings based on debt-to-income ratio, repayment history, and employment stability indicators. | High | Pass: Risk tier (Low/Med/High) accurately assigned; Fail: Incomplete financial profile generates credit approval. | Essential for peer lenders to gauge risk before funding. |
+| **FR-002** | Functional | The system shall generate structured repayment schedules for funded loans. | High | Pass: Accurate EMI schedule with dates is generated upon loan approval; Fail: Schedule is missing, has wrong dates, or EMIs do not add up to principal + interest. | Borrowers need clear timelines to prevent defaults. |
+| **FR-003** | Functional | The system shall trigger automated default warnings to borrowers and lenders when an EMI is missed. | Med | Pass: Warning notification sent at exactly T+1 days past the due date; Fail: No warning is sent, or it is sent before the due date has passed. | Proactive risk management and communication. |
+| **FR-004** | Functional | Borrowers shall be able to submit new loan requests specifying the required amount and purpose. | High | Pass: Loan request is successfully saved and queued for risk assessment; Fail: A request with a missing amount or purpose is accepted, or a valid request is not saved. | Core platform functionality for initiating the lending cycle. |
+| **FR-005** | Functional | Peer Lenders shall be able to browse and fund active loan requests based on borrower risk scores. | High | Pass: Lender funds are deducted and the loan is marked as "Funded"; Fail: The loan is marked Funded without funds being deducted, or funds are deducted twice. | Enables the peer-to-peer transaction aspect of the platform. |
+| **NFR-001** | Performance & Security | Loan repayment transactions and EMI distribution must execute inside database ACID transactions to prevent double-spending. | High | Pass: A simulated failure mid-repayment rolls back completely and concurrent repayment tests show no duplicate debits; Fail: A partial or duplicate transaction is recorded. | Prevents severe financial data corruption. |
+| **NFR-002** | Performance | The platform's risk assessment and repayment dashboard must load within 2 seconds. | Med | Pass: Automated load testing confirms page load times <= 2000 ms; Fail: The dashboard takes longer than 2000 ms to load under normal load. | Ensures a smooth user experience for stakeholders. |
