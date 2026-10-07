@@ -71,10 +71,13 @@ class Board:
     def can_move(self):
         if any(0 in row for row in self.grid):
             return True
+
         for r in range(SIZE):
             for c in range(SIZE):
                 if c + 1 < SIZE and self.grid[r][c] == self.grid[r][c + 1]:
                     return True
+
                 if r + 1 < SIZE and self.grid[r][c] == self.grid[r + 1][c]:
                     return True
+
         return False
