@@ -25,12 +25,28 @@ class Game:
         if key not in moves:
             return False
 
+        old_grid = [row[:] for row in self.board.grid]
+        old_score = self.board.score
+
         changed = moves[key]()
 
         if changed:
+            self.history = [(old_grid, old_score)]
             self.board.add_random_tile()
 
         return changed
+
+    def undo(self):
+        if not self.history:
+            print("Nothing to undo.")
+            return False
+
+        old_grid, old_score = self.history.pop()
+        self.board.grid = [row[:] for row in old_grid]
+        self.board.score = old_score
+
+        print("Move undone.")
+        return True
 
     def run(self):
         print("2048 — W/A/S/D to move, U to undo, Q to quit.")
@@ -52,7 +68,7 @@ class Game:
                 return
 
             if key == "u":
-                print("Undo is not implemented yet.")
+                self.undo()
                 continue
 
             if key not in {"w", "a", "s", "d"}:
