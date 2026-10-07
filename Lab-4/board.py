@@ -7,6 +7,7 @@ class Board:
     def __init__(self):
         self.grid = [[0] * SIZE for _ in range(SIZE)]
         self.score = 0
+        self.last_move_merges = 0
         self.add_random_tile()
         self.add_random_tile()
 
@@ -25,6 +26,7 @@ class Board:
             if result and result[-1] == value and not merged:
                 result[-1] *= 2
                 self.score += result[-1]
+                self.last_move_merges += 1
                 merged = True
             else:
                 result.append(value)
@@ -33,39 +35,59 @@ class Board:
         return result + [0] * (SIZE - len(result))
 
     def move_left(self):
+        self.last_move_merges = 0
         changed = False
+
         for r in range(SIZE):
             old = self.grid[r][:]
             self.grid[r] = self.slide_line(old)
             changed |= old != self.grid[r]
+
         return changed
 
     def move_right(self):
+        self.last_move_merges = 0
         changed = False
+
         for r in range(SIZE):
             old = self.grid[r][:]
-            self.grid[r] = list(reversed(self.slide_line(list(reversed(old)))))
+            self.grid[r] = list(
+                reversed(self.slide_line(list(reversed(old))))
+            )
             changed |= old != self.grid[r]
+
         return changed
 
     def move_up(self):
+        self.last_move_merges = 0
         changed = False
+
         for c in range(SIZE):
             old = [self.grid[r][c] for r in range(SIZE)]
             new = self.slide_line(old)
+
             for r in range(SIZE):
                 self.grid[r][c] = new[r]
+
             changed |= old != new
+
         return changed
 
     def move_down(self):
+        self.last_move_merges = 0
         changed = False
+
         for c in range(SIZE):
             old = [self.grid[r][c] for r in range(SIZE)]
-            new = list(reversed(self.slide_line(list(reversed(old)))))
+            new = list(
+                reversed(self.slide_line(list(reversed(old))))
+            )
+
             for r in range(SIZE):
                 self.grid[r][c] = new[r]
+
             changed |= old != new
+
         return changed
 
     def can_move(self):
