@@ -13,6 +13,7 @@ A peer-to-peer micro-finance platform that calculates borrower risk scores using
 | Lab 1 | Requirements Engineering & UML Use-Case Modelling | [`Lab1/`](Lab1/) |
 | Lab 2 | Agile Backlog Creation & Sprint Simulation in Jira | [`Lab2/`](Lab2/) |
 | Lab 3 | Component Modelling & Architectural Pattern Selection | [`Lab3/`](Lab3/) |
+| Lab 4 | Vibe Coding – Fixing & Extending a 2048 Game with an LLM | [`Lab-4/`](Lab-4/) |
 
 ## Lab 1 – Requirements Engineering & UML Use-Case Modelling
 - `Lab1_PES1UG24CS077_5B.pdf` – consolidated Lab 1 submission
@@ -28,3 +29,9 @@ A peer-to-peer micro-finance platform that calculates borrower risk scores using
 - `PES1UG24CS077_Lab3_Submission.pdf` – combined submission (page 1: component diagram, page 2: one-page justification)
 - `PES1UG24CS077_Lab3_Component_Diagram.png` / `.pdf` – UML component diagram (Layered Architecture, 5 components, 4 interfaces)
 - `PES1UG24CS077_Lab3_Architectural_Justification.pdf` – one-page justification: choice, two reasons, one security advantage, one performance benefit
+
+## Lab 4 – Vibe Coding (Scenario 14: 2048)
+- Assigned repo: https://github.com/SETAPESU26/14_2048
+- `main.py`, `game.py`, `board.py` – fixed double-merge bug and score, win/no-move detection, input validation, one-level undo + best score, move feedback
+- `PES1UG24CS077_Lab4_Before.mp4` / `PES1UG24CS077_Lab4_After.mp4` – 10-second gameplay before/after
+- `PES1UG24CS077_Lab4_Chat_History.pdf` + `LLM_CHAT_LINK.md` – complete LLM chat (4 prompts)
