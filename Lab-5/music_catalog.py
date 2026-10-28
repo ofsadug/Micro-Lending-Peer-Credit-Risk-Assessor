@@ -5,11 +5,14 @@ import secrets
 import sqlite3
 
 CONNECTION = sqlite3.connect(":memory:")
-CONNECTION.execute("CREATE TABLE songs (id INTEGER PRIMARY KEY, title TEXT, artist TEXT, plays INTEGER)")
+CONNECTION.execute(
+    "CREATE TABLE songs "
+    "(id INTEGER PRIMARY KEY, title TEXT, artist TEXT, plays INTEGER)"
+)
 
 
 def add_song(title, artist, plays=0, playlist=None):
-    """Store a song and append its title to a caller-supplied or new playlist."""
+    """Store a song and append its title to a supplied or new playlist."""
     if playlist is None:
         playlist = []
     CONNECTION.execute(
@@ -27,15 +30,17 @@ def shuffle_pick():
 
 
 def popularity(title):
-    """Classify a title as popular, niche or unknown; popular means >100 plays."""
-    row = CONNECTION.execute("SELECT plays FROM songs WHERE title = ?", (title,)).fetchone()
+    """Classify a title; more than 100 plays means popular."""
+    row = CONNECTION.execute(
+        "SELECT plays FROM songs WHERE title = ?", (title,)
+    ).fetchone()
     if row is None:
         return "unknown"
     return "popular" if row[0] > 100 else "niche"
 
 
 def save_playlist(playlist):
-    """Serialize a list of song titles to UTF-8 JSON bytes, not executable pickle."""
+    """Serialize a list of song titles to UTF-8 JSON bytes."""
     if not isinstance(playlist, list) or not all(
         isinstance(title, str) for title in playlist
     ):
@@ -55,19 +60,24 @@ def load_playlist(blob):
 
 def total_plays():
     """Return total plays, or zero for no songs; propagate database errors."""
-    row = CONNECTION.execute("SELECT COALESCE(SUM(plays), 0) FROM songs").fetchone()
+    row = CONNECTION.execute(
+        "SELECT COALESCE(SUM(plays), 0) FROM songs"
+    ).fetchone()
     return row[0]
 
 
 def main():
-    """Demonstrate catalog operations and a playlist serialization round trip."""
+    """Demonstrate catalog operations and playlist serialization."""
     playlist = add_song("Aurora", "Nila", 250)
     add_song("Monsoon", "Kavya", 40, playlist)
     blob = save_playlist(playlist)
     loaded_playlist = load_playlist(blob)
     if len(loaded_playlist) > 1:
         print("multi-song playlist")
-    print(popularity("Aurora"), popularity("Monsoon"), shuffle_pick(), total_plays())
+    print(
+        popularity("Aurora"), popularity("Monsoon"),
+        shuffle_pick(), total_plays(),
+    )
 
 
 if __name__ == "__main__":
