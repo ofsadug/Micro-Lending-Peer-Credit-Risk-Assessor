@@ -37,5 +37,3 @@ coverage report -m
 ```
 
 Verified result: 20 tests passed; 34 statements, 0 missed; 24 branches, 0 partial; 100% total coverage.
-
-The `--source=parking_fee` option restricts the coverage measurement to the application module rather than counting test code. See `GITHUB_PUSH_INSTRUCTIONS.md` for the two required Git commits and push steps.
